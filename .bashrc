@@ -1,3 +1,5 @@
+# Aleksa Gordic
+
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -56,8 +58,37 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+# solving longpromptitis my way, by using 2-liner prompt
+# colors found here: https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg
+# this example helped: https://www.youtube.com/watch?v=LXgXV7YmSiU
+# colors for PS1:
+orange=$(tput setaf 166);
+red=$(tput setaf 196);
+blue=$(tput setaf 27);
+green=$(tput setaf 154);
+white=$(tput setaf 15);
+bold=$(tput setaf bold);
+reset=$(tput setaf sgr0);
+
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[0;31m\]\u@\h\[\033[00m\]:\[\033[0;37m\]\w\[\033[00m\]\$ '
+        PS1="\[${bold}\]";
+        # depending if the last command was correct or false we have corresponding smiley
+        PS1+="\`if [ \$? = 0 ]; then echo \[\e[32m\]^_^\[\e[00m\]; else echo \[\e[31m\]O_O\[\e[0m\]; fi\`";
+        # (#cmd) 
+        PS1+="\[${white}\] (";
+        PS1+="\[${red}\]\!";
+        PS1+="\[${white}\])";
+        # [username@host::gorda]
+        PS1+="\[${white}\][";
+        PS1+="\[${blue}\]\u@\h::gorda";  
+        PS1+="\[${white}\]]";
+        # (HH:MM:SS)
+        PS1+="\[${white}\](";
+        PS1+="\[${red}\]\t";
+        PS1+="\[${white}\])";
+        PS1+="\n";
+        PS1+="\[${white}\]\w"; # working directory
+        PS1+="\[${white}\] \$ "; # depending if regular or root user we have # or $
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
