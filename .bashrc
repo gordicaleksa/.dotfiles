@@ -1,5 +1,13 @@
 # Aleksa Gordic
 
+# Load the shell dotfiles, and then some:
+# * ~/.path can be used to extend `$PATH`.
+# * ~/.extra can be used for other settings you don’t want to commit.
+for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
+	[ -r "$file" ] && [ -f "$file" ] && source "$file";
+done;
+unset file;
+
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -62,6 +70,7 @@ fi
 # colors found here: https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg
 # this example helped: https://www.youtube.com/watch?v=LXgXV7YmSiU
 # colors for PS1:
+purple=$(tput setaf 92);
 orange=$(tput setaf 166);
 red=$(tput setaf 196);
 blue=$(tput setaf 27);
@@ -70,10 +79,13 @@ white=$(tput setaf 15);
 bold=$(tput setaf bold);
 reset=$(tput setaf sgr0);
 
+PS2="\[${orange}\]==>\[${white}\] ";
+
 if [ "$color_prompt" = yes ]; then
         PS1="\[${bold}\]";
         # depending if the last command was correct or false we have corresponding smiley
-        PS1+="\`if [ \$? = 0 ]; then echo \[\e[32m\]^_^\[\e[00m\]; else echo \[\e[31m\]O_O\[\e[0m\]; fi\`";
+        # PS1+="\`if [ \$? = 0 ]; then echo \[\e[32m\]^_^\[\e[00m\]; else echo \[\e[31m\]O_O\[\e[0m\]; fi\`";
+        PS1='$(if [[ $? == 0 ]]; then echo "\[\e[32m\]:)"; else echo "\[\e[31m\]:("; fi)';
         # (#cmd) 
         PS1+="\[${white}\] (";
         PS1+="\[${red}\]\!";
@@ -85,10 +97,18 @@ if [ "$color_prompt" = yes ]; then
         # (HH:MM:SS)
         PS1+="\[${white}\](";
         PS1+="\[${red}\]\t";
-        PS1+="\[${white}\])";
+        PS1+="\[${white}\]) ";
+        # shows current git branch
+        PS1+="on branch: [ ";
+        PS1+="\[${purple}\]";
+        PS1+='$(git branch 2>/dev/null | sed -n "s/* \(.*\)/\1 /p")';
+        PS1+="\[${white}\]]";
+        # go to next line
         PS1+="\n";
-        PS1+="\[${white}\]\w"; # working directory
-        PS1+="\[${white}\] \$ "; # depending if regular or root user we have # or $
+        # working directory
+        PS1+="\[${white}\]\w"; 
+        # root user ? # : $;
+        PS1+="\[${white}\] \$ ";
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi

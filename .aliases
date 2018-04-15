@@ -1,0 +1,12 @@
+#!/usr/bin/bash
+
+# Easier navigation:
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias -- -="cd -" # -- escape sequence
+
+# shortcuts
+alias dl="cd ~/Downloads"
+alias dt="cd ~/Desktop"
