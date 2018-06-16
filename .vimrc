@@ -15,6 +15,9 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'powerline/powerline' "currently doesn't work...
 Plugin 'sjl/gundo.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'ctrlpvim/ctrlp.vim'
+let g:ctrlp_match_window = 'bottom,order:ttb'
 
 call vundle#end()
 filetype plugin indent on
@@ -54,10 +57,12 @@ let mapleader=","   " leader is comma
 inoremap jk <esc>   " jk is escape
 nnoremap <leader><space> :nohlsearch<CR>    " turn off search highlight
 nnoremap <space> za " space open/closes folds
+nnoremap <leader>n :NERDTree<CR> " open Nerd Tree plugin
+nnoremap <leader>p :CtrlP<CR> " toggle CtrlP
 nnoremap <leader>u :GundoToggle<CR> " toggle gundo
 nnoremap <leader>ev :vsp $MYVIMRC<CR> " edit vimrc
 nnoremap <leader>sv :source $MYVIMRC<CR> " load vimrc bindings
-nnoremap <C-j> <C-w>j
+nnoremap <C-j> <C-w>j "for navigating between vim windows
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 nnoremap <C-h> <C-w>h

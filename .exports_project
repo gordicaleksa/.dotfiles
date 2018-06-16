@@ -1,0 +1,27 @@
+# qemu executable
+export PATH=/home/pds/Downloads/workspace/qemu-2.11.1/bin/arm/arm-softmmu:$PATH
+
+# qemu tools
+export PATH=/home/pds/Downloads/workspace/qemu-2.11.1/bin/arm:$PATH
+
+# linaro toolchain
+export PATH=/home/pds/Downloads/gcc-linaro-7.2.1-2017.11-x86_64_arm-linux-gnueabihf/bin:$PATH
+
+# toolchain libraries which we need when creating our own filesystem
+export SYSROOT=/home/pds/Downloads/gcc-linaro-7.2.1-2017.11-x86_64_arm-linux-gnueabihf/bin/../arm-linux-gnueabihf/libc    
+
+# U-Boot binary
+export UBOOT=/home/pds/Downloads/workspace/u-boot/u-boot
+
+# Linux zImage 
+export ZIMAGE=/home/pds/Downloads/workspace/linux-stable/arch/arm/boot/zImage
+
+# custom board .dtb
+export VE_DTB=/home/pds/Downloads/workspace/linux-stable/arch/arm/boot/dts/vexpress-pds13.dtb
+
+# minimal root filesystem
+export URAMDISK=/home/pds/Downloads/workspace/filesystem/uRamdisk
+
+# staging directory
+export STAGING=/home/pds/Downloads/workspace/filesystem/rootfs
+
